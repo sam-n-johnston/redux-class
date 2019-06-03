@@ -4,9 +4,12 @@ const state = {
 };
 
 // state can only be changed by action
-dispatch({
+const increment = {
     type: 'INCREMENT'
-})
+}
+const decrement = {
+    type: 'DECREMENT'
+}
 
 // Pure vs impure function
 const square = (x) => x * x
@@ -52,31 +55,20 @@ console.log('TESTS PASSED')
 const { createStore } = Redux;
 const store = createStore(reducer)
 
-console.log(store.getState())
-store.dispatch({
-    type: 'INCREMENT'
-})
-console.log(store.getState())
-
 const render = () => {
-    document.body.innerHTML = `
-    <div>
-    	${store.getState().counter}
+    document.getElementById("renderDiv").innerHTML = `
+    <div> 
+      ${store.getState().counter} 
     </div>
-    `
-}
+    `;
+};
 
 store.subscribe(render)
 render()
 
-document.addEventListener('click', () => {
-    store.dispatch({ type: 'INCREMENT' })
-})
-
-
 // Create `createStore` function
 const createStore = (reducer) => {
-    let state;
+    let state = reducer(undefined, {});
     const listeners = [];
 
     const getState = () => state;
@@ -113,5 +105,22 @@ const createStore = (reducer) => {
 
 
 // Talk about boiler plate
+
+
+// ============================
+
+
+<div>
+  <div id="renderDiv" >   
+  </div>
+  <div id="buttonDiv" > 
+    <input type="button" onclick="store.dispatch(increment); return false" value="+" /> 
+    <input type="button" onclick="store.dispatch(decrement); return false" value="-" /> 
+  </div>
+</div>
+
+
+// ============================
+
 
 
