@@ -88,6 +88,26 @@ const createStore = (reducer) => {
 
 // Create async usage
 
+const createStore = (reducer) => {
+    let state = reducer(undefined, {});
+    const listeners = [];
+
+    const getState = () => state;
+
+    const subscribe = (listener) => {
+        listeners.push(listener);
+    }
+
+    const dispatch = (action) => {
+        if (typeof action === 'function') return action(dispatch, getState)
+        state = reducer(state, action);
+        listeners.forEach(listener => listener());
+    }
+
+    return { getState, subscribe, dispatch }
+}
+
+// Create async usage with middleware (+logging)
 
 
 // Show conditional listener call (only call if change in object)
