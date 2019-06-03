@@ -48,6 +48,32 @@ expect(
 
 console.log('TESTS PASSED')
 
+// With redux
+const { createStore } = Redux;
+const store = createStore(reducer)
+
+console.log(store.getState())
+store.dispatch({
+    type: 'INCREMENT'
+})
+console.log(store.getState())
+
+const render = () => {
+    document.body.innerHTML = `
+    <div>
+    	${store.getState().counter}
+    </div>
+    `
+}
+
+store.subscribe(render)
+render()
+
+document.addEventListener('click', () => {
+    store.dispatch({ type: 'INCREMENT' })
+})
+
+
 // Create `createStore` function
 const createStore = (reducer) => {
     let state;
