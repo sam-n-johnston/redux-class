@@ -3,7 +3,7 @@ const state = {
     counter: 10,
 };
 
-// state can only be changed by action
+// state can only be changed by action (similarity to CQRS)
 const increment = {
     type: 'INCREMENT'
 }
@@ -107,20 +107,47 @@ const createStore = (reducer) => {
     return { getState, subscribe, dispatch }
 }
 
-// Create async usage with middleware (+logging)
+// Create async usage with middlewares (+logging)
+
+const createStore = (reducer, middlewares) => {
+    let state = reducer(undefined, {});
+    const listeners = [];
+
+    const getState = () => state;
+
+    const subscribe = (listener) => {
+        listeners.push(listener);
+    }
+
+    const dispatch = (action) => {
+        middlewares.reduce((funcs, middleware) => (...args) => funcs(middleware(...args))) // To finish (check 14:00 of Dan's video)
+
+        state = reducer(state, action);
+        listeners.forEach(listener => listener());
+    }
+
+    return { getState, subscribe, dispatch }
+}
+
+
+// Example of composable reducers (since they're pure)
+
+
+// How we can create memoized selectors (since they're pure)
 
 
 // Show conditional listener call (only call if change in object)
 
+// How the constraints makes contracts social, (17:22 in video). That means you can compose API extensions. 
 
-// Show some sweet debug features
+// Show some sweet debug features (hot reloading, time travel, record user sessions in case of error, )
+
+// Enhancers? (15:26 in Dan's video)
 
 
+// Show undo/redo (11:31 in Dan's video) Higher order reducer (takes a reducer + args & sends another reducer). Or check Dan's old video (2015) at 23:21
 
-
-// Show undo/redo
-
-// Show state persistence
+// Show state persistence, optimistic mutations (re-calculate the state if you remove 1 action), 
 
 
 
@@ -141,6 +168,19 @@ const createStore = (reducer) => {
 
 
 // ============================
+
+
+// Talk from Abramove
+
+/* Redux has almost no API or features. It's not popular because of this. It's popular because of the constraints it puts on us. 
+ * https://www.youtube.com/watch?v=uvAXVMwHJXU&t=536s
+ * Some constraints provide features. 
+ * Easy to understand what's happening in the library
+ * Social contracts makes it popular 
+ * /
+
+
+
 
 
 
