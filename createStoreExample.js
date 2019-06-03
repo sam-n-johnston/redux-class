@@ -1,9 +1,9 @@
-// state is read-only immutable
+// state is immutable & a JS object
 const state = {
     counter: 10,
 };
 
-// state can only be changed by action (similarity to CQRS)
+// state can only be changed by an action & a JS object
 const increment = {
     type: 'INCREMENT'
 }
@@ -68,7 +68,7 @@ render()
 
 // Create `createStore` function
 const createStore = (reducer) => {
-    let state = reducer(undefined, {});
+    let state = reducer(undefined, { type: "@@INIT" });
     const listeners = [];
 
     const getState = () => state;
@@ -86,8 +86,11 @@ const createStore = (reducer) => {
 }
 
 
-// Create async usage
+// How the constraints makes contracts social, (17:22 in video). That means you can compose API extensions. 
 
+// Enhancers? (15:26 in Dan's video)
+
+// Create async usage
 const createStore = (reducer) => {
     let state = reducer(undefined, {});
     const listeners = [];
@@ -105,6 +108,10 @@ const createStore = (reducer) => {
     }
 
     return { getState, subscribe, dispatch }
+}
+
+const increment = (dispatch, getState) => {
+    setTimeout(() => dispatch({ type: 'INCREMENT' }), 2000)
 }
 
 // Create async usage with middlewares (+logging)
@@ -128,26 +135,6 @@ const createStore = (reducer, middlewares) => {
 
     return { getState, subscribe, dispatch }
 }
-
-
-// Example of composable reducers (since they're pure)
-
-
-// How we can create memoized selectors (since they're pure)
-
-
-// Show conditional listener call (only call if change in object)
-
-// How the constraints makes contracts social, (17:22 in video). That means you can compose API extensions. 
-
-// Show some sweet debug features (hot reloading, time travel, record user sessions in case of error, )
-
-// Enhancers? (15:26 in Dan's video)
-
-
-// Show undo/redo (11:31 in Dan's video) Higher order reducer (takes a reducer + args & sends another reducer). Or check Dan's old video (2015) at 23:21
-
-// Show state persistence, optimistic mutations (re-calculate the state if you remove 1 action), 
 
 
 
