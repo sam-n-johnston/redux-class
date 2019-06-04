@@ -1,3 +1,6 @@
+// https://unpkg.com/expect@1.20.2/umd/expect.min.js
+// https://cdnjs.cloudflare.com/ajax/libs/redux/3.1.4/redux.js
+
 // state is immutable & a JS object
 const state = {
     counter: 10,
