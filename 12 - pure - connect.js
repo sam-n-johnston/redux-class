@@ -1,10 +1,10 @@
-// state is immutable & a JS object
+// STATE
 const state = {
     counter_1: { internval: 0, count: 0 },
     counter_2: { internval: 0, count: 0 },
 };
 
-// state can only be changed by an action & a JS object
+// ACTION
 const increment = {
     type: 'INCREMENT'
 }
@@ -18,7 +18,7 @@ const incrementCounter2 = {
     type: 'INCREMENT_COUNTER_2'
 }
 
-// Reducer to describe state changes
+// REDUCER
 const reducer = (state = { counter_1: { internval: 0, count: 0 }, counter_2: { internval: 0, count: 0 } }, action) => {
     if(action.type === 'INCREMENT') return {
         ...state,
@@ -43,25 +43,26 @@ const reducer = (state = { counter_1: { internval: 0, count: 0 }, counter_2: { i
 const { createStore } = Redux;
 const store = createStore(reducer)
 
-const render = (counter_1) => {
-    document.getElementById("renderDiv").innerText = JSON.stringify(counter_1);
+const render = (props) => {
+    document.getElementById("renderDiv").innerText = JSON.stringify(props);
 };
 
-const connect = (renderFunc) => {
+const connect = (mapStateToProps) => (renderFunc) => {
     let currentProps = {}
     return () => {
-        if (currentProps === store.getState().counter_1) {
+        if (currentProps === mapStateToProps(store.getState())) {
             console.log('STATE DID NOT CHANGE')
             return
         }
 
-        currentProps = store.getState().counter_1
+        currentProps = mapStateToProps(store.getState())
         render(currentProps)
     }
 }
 
-store.subscribe(connect(render))
-render(store.getState().counter_1)
+const mapStateToProps = (state) => state.counter_1
+store.subscribe(connect(mapStateToProps)(render))
+render(mapStateToProps(store.getState()))
 
 // HTML 
 

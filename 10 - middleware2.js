@@ -1,17 +1,12 @@
-// state is immutable & a JS object
 const state = {
     counter: 10,
 };
-
-// state can only be changed by an action & a JS object
 const increment = {
     type: 'INCREMENT'
 }
 const decrement = {
     type: 'DECREMENT'
 }
-
-// Reducer to describe state changes
 const reducer = (state = { counter: 0 }, action) => {
     if(state.counter > 10) throw new Error('BOOM')
     if(action.type === 'INCREMENT') return { counter: state.counter + 1 }

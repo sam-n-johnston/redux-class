@@ -1,9 +1,6 @@
-// state is immutable & a JS object
 const state = {
     counter: 10,
 };
-
-// state can only be changed by an action & a JS object
 const increment = dispatch => {
     dispatch({ type: 'SENDING_REQUEST' })
     return new Promise(resolve => setTimeout(resolve, 2000))
@@ -13,8 +10,6 @@ const increment = dispatch => {
 const decrement = {
     type: 'DECREMENT'
 }
-
-// Reducer to describe state changes
 const reducer = (state = { counter: 0 }, action) => {
     if(action.type === 'INCREMENT') return { counter: state.counter + 1 }
     if(action.type === 'DECREMENT') return { counter: state.counter - 1 }

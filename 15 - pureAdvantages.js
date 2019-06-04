@@ -31,9 +31,6 @@ const combineReducers = (reducers) => { // reducers: { incAndDecReducer: Functio
     }
 }
 
-// Show some sweet debug features (record user sessions in case of error) (7:47)
-
-
 // Show state persistence
 const saveState = (dispatch, getState) => {
     dispatch({ type: 'SAVING_STATE' })

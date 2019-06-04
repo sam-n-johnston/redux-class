@@ -1,19 +1,13 @@
 // How we can create memoized selectors (since they're pure), for ordering, filtering, etc.
-// 
-// state is immutable & a JS object
 const state = {
     counter: 10,
 };
-
-// state can only be changed by an action & a JS object
 const increment = {
     type: 'INCREMENT'
 }
 const decrement = {
     type: 'DECREMENT'
 }
-
-// Reducer to describe state changes
 const reducer = (state = { counter: 0 }, action) => {
     if(action.type === 'INCREMENT') return { counter: state.counter + 1 }
     if(action.type === 'DECREMENT') return { counter: state.counter - 1 }
@@ -24,7 +18,7 @@ const reducer = (state = { counter: 0 }, action) => {
 const mySelector = (state) => {
     console.log('heavy computation')
     return state.counter * Math.cos(state.counter)
-} 
+}
 
 let memoizedValue = undefined
 let memoizedArgs = undefined
