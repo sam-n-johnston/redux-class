@@ -12,8 +12,11 @@
 
 // JS
 
-const increment = (dispatch, getState) => {
-    setTimeout(() => dispatch({ type: 'INCREMENT' }), 2000)
+const increment = dispatch => {
+    dispatch({ type: 'SENDING_REQUEST' })
+    return new Promise(resolve => setTimeout(resolve, 2000))
+        .then(() => dispatch({ type: 'INCREMENT' }))
+        .catch(() => dispatch({ type: 'REQUEST_FAILED' }))
 }
 const decrement = {
     type: 'DECREMENT'

@@ -4,7 +4,7 @@ const state = {
 };
 
 // state can only be changed by an action & a JS object
-const increment = (dispatch, getState) => {
+const increment = dispatch => {
     dispatch({ type: 'SENDING_REQUEST' })
     return new Promise(resolve => setTimeout(resolve, 2000))
         .then(() => dispatch({ type: 'INCREMENT' }))
