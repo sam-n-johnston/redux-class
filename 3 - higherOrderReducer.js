@@ -90,12 +90,12 @@ render()
 // HTML
 
 <div>
-  <div id="renderDiv" >   
+  <div id="renderDiv" >
   </div>
-  <div id="buttonDiv" > 
-    <input type="button" onclick="store.dispatch(increment); return false" value="+" /> 
-    <input type="button" onclick="store.dispatch(decrement); return false" value="-" /> 
-    <input type="button" onclick="store.dispatch(undo); return false" value="undo" /> 
+  <div id="buttonDiv" >
+    <input type="button" onclick="store.dispatch(increment); return false" value="+" />
+    <input type="button" onclick="store.dispatch(decrement); return false" value="-" />
+    <input type="button" onclick="store.dispatch(undo); return false" value="undo" />
   </div>
 </div>
 

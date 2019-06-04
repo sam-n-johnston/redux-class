@@ -60,7 +60,7 @@ const createStore = (reducer) => {
 const store = createStore(reducer)
 
 const render = () => {
-		console.log('render')
+    console.log('render')
     document.getElementById("renderDiv").innerHTML = `
     <div> 
       ${memoizedSelector(store.getState())}
@@ -72,7 +72,7 @@ store.subscribe(render)
 render()
 
 setInterval(() => {
-		console.log('dispatching tick')
+    console.log('dispatching tick')
     store.dispatch({ TYPE: 'TICK' })
 }, 1000)
 

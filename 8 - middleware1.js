@@ -4,24 +4,11 @@ const state = {
 };
 
 // state can only be changed by an action & a JS object
-const increment = {
-    type: 'INCREMENT'
+const increment = (dispatch, getState) => {
+    setTimeout(() => dispatch({ type: 'INCREMENT' }), 2000)
 }
 const decrement = {
     type: 'DECREMENT'
-}
-
-// Pure vs impure function
-const square = (x) => x * x
-
-let timer = 0;
-
-const squareIfUnder10 = (x) => {
-    if (timer < 10) {
-        timer++
-        return x * x
-    }
-    else return x
 }
 
 // Reducer to describe state changes
@@ -58,7 +45,11 @@ const logger = store => action => {
     console.log(action, '=>' ,store.getState())
 }
 
-const store = createStore(reducer, [logger])
+const thunk = store => action => {
+    if (typeof action === 'function') return action(store.dispatch, store.getState)
+}
+
+const store = createStore(reducer, [logger, thunk])
 
 const render = () => {
     document.getElementById("renderDiv").innerHTML = `

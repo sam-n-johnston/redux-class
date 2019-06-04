@@ -1,13 +1,13 @@
 // HTML
 
-<div>
+/* <div>
   <div id="renderDiv" >   
   </div>
   <div id="buttonDiv" > 
     <input type="button" onclick="store.dispatch(increment); return false" value="+" /> 
     <input type="button" onclick="store.dispatch(decrement); return false" value="-" /> 
   </div>
-</div>
+</div> */
 
 
 // JS
