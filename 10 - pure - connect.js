@@ -14,19 +14,6 @@ const reset = {
     type: 'RESET'
 }
 
-// Pure vs impure function
-const square = (x) => x * x
-
-let timer = 0;
-
-const squareIfUnder10 = (x) => {
-    if (timer < 10) {
-        timer++
-        return x * x
-    }
-    else return x
-}
-
 // Reducer to describe state changes
 const reducer = (state = { counter: 0 }, action) => {
     if(action.type === 'INCREMENT') return { counter: state.counter + 1 }
