@@ -39,6 +39,10 @@ const connect = (elementId) => (renderFunc) => () => {
 store.subscribe(connect("renderDiv")(render))
 render({counter: 0})
 
+setInterval(() => {
+    console.log('dispatching tick')
+    store.dispatch({ TYPE: 'TICK' })
+}, 1000)
 
 
 
