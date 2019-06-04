@@ -10,6 +10,9 @@ const increment = {
 const decrement = {
     type: 'DECREMENT'
 }
+const reset = {
+    type: 'RESET'
+}
 
 // Pure vs impure function
 const square = (x) => x * x
@@ -28,6 +31,7 @@ const squareIfUnder10 = (x) => {
 const reducer = (state = { counter: 0 }, action) => {
     if(action.type === 'INCREMENT') return { counter: state.counter + 1 }
     if(action.type === 'DECREMENT') return { counter: state.counter - 1 }
+    if(action.type === 'RESET') { state.counter = 0 } // TO COMPLETE
 
     return state
 }
@@ -36,14 +40,14 @@ const { createStore } = Redux;
 const store = createStore(reducer)
 
 const render = (counterObj) => {
-    document.getElementById("renderDiv").innerText = counterObj.counter;
+    document.getElementById("renderDiv").innerText = JSON.stringify(counterObj);
 };
 
 const connect = (elementId) => (renderFunc) => () => {
   const currentProps = document.getElementById(elementId).innerText
+  console.log()
   if (currentProps !== store.getState()) renderFunc(store.getState())
 }
-
 
 store.subscribe(connect("renderDiv")(render))
 render({counter: 0})

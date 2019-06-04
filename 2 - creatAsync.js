@@ -39,10 +39,8 @@ const createStore = (reducer) => {
     }
 
     const dispatch = (action) => {
-    console.log('ACTION')
-    console.log(action)
-    console.log(typeof action)
         if (typeof action === 'function') return action(dispatch, getState)
+
         state = reducer(state, action);
         listeners.forEach(listener => listener());
     }

@@ -86,9 +86,6 @@ const createStore = (reducer) => {
 }
 
 
-// How the constraints makes contracts social, (17:22 in video). That means you can compose API extensions. 
-
-// Enhancers? (15:26 in Dan's video)
 
 // Create async usage
 const createStore = (reducer) => {
@@ -114,7 +111,30 @@ const increment = (dispatch, getState) => {
     setTimeout(() => dispatch({ type: 'INCREMENT' }), 2000)
 }
 
-// Create async usage with middlewares (+logging)
+// Create async usage with single middleware
+const createStore = (reducer, middlewares) => {
+    let state = reducer(undefined, {});
+    const listeners = [];
+
+    const getState = () => state;
+
+    const subscribe = (listener) => {
+        listeners.push(listener);
+    }
+
+    const dispatch = (action) => {
+        middlewares.map((middleware) => {
+            middleware(store)(action)
+        })
+
+        state = reducer(state, action);
+        listeners.forEach(listener => listener());
+    }
+
+    return { getState, subscribe, dispatch }
+}
+
+
 
 const createStore = (reducer, middlewares) => {
     let state = reducer(undefined, {});
@@ -127,7 +147,7 @@ const createStore = (reducer, middlewares) => {
     }
 
     const dispatch = (action) => {
-        middlewares.reduce((funcs, middleware) => (...args) => funcs(middleware(...args))) // To finish (check 14:00 of Dan's video)
+        middlewares.reduce((funcs, middleware) => (...args) => funcs(middleware(...args)))
 
         state = reducer(state, action);
         listeners.forEach(listener => listener());
@@ -168,6 +188,12 @@ const createStore = (reducer, middlewares) => {
 
 
 
+
+
+
+// How the constraints makes contracts social, (17:22 in video). That means you can compose API extensions. 
+
+// Enhancers? (15:26 in Dan's video)
 
 
 
