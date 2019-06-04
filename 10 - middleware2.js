@@ -13,7 +13,7 @@ const decrement = {
 
 // Reducer to describe state changes
 const reducer = (state = { counter: 0 }, action) => {
-        if(state.counter > 10) throw new Error('BOOM')
+    if(state.counter > 10) throw new Error('BOOM')
     if(action.type === 'INCREMENT') return { counter: state.counter + 1 }
     if(action.type === 'DECREMENT') return { counter: state.counter - 1 }
 
@@ -26,16 +26,6 @@ const logger = store => next => action => {
     return next(action)
 }
 
-const crashReporter = store => next => action => {
-  try {
-    return next(action)
-  } catch (err) {
-    console.error('Caught an exception!', err)
-    // Log to ELK
-    throw err
-  }
-}
-
 const historyLog = {}
 
 const history = store => next => action => {
@@ -43,15 +33,23 @@ const history = store => next => action => {
         action,
         previousState: store.getState()
     }
-    console.log(historyLog)
     return next(action)
+}
+
+const crashReporter = store => next => action => {
+  try {
+    return next(action)
+  } catch (err) {
+    console.error('Caught an exception!', err)
+    // Log to ELK
+    console.log(historyLog)
+    throw err
+  }
 }
 
 const store = createStore(reducer, applyMiddleware(crashReporter, history, logger))
 
 const render = () => {
-    console.log('store.getState()')
-    console.log(store.getState())
     document.getElementById("renderDiv").innerHTML = `
     <div> 
       ${store.getState().counter} 

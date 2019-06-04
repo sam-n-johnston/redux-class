@@ -43,8 +43,8 @@ const reducer = (state = { counter_1: { internval: 0, count: 0 }, counter_2: { i
 const { createStore } = Redux;
 const store = createStore(reducer)
 
-const render = (counterObj) => {
-    document.getElementById("renderDiv").innerText = JSON.stringify(counterObj);
+const render = (counter_1) => {
+    document.getElementById("renderDiv").innerText = JSON.stringify(counter_1);
 };
 
 const connect = (renderFunc) => {
