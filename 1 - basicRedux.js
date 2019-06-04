@@ -1,17 +1,12 @@
-// state is immutable & a JS object
 const state = {
     counter: 10,
 };
-
-// state can only be changed by an action & a JS object
 const increment = {
     type: 'INCREMENT'
 }
 const decrement = {
     type: 'DECREMENT'
 }
-
-// Reducer to describe state changes
 const reducer = (state = { counter: 0 }, action) => {
     if(action.type === 'INCREMENT') return { counter: state.counter + 1 }
     if(action.type === 'DECREMENT') return { counter: state.counter - 1 }
@@ -19,26 +14,6 @@ const reducer = (state = { counter: 0 }, action) => {
     return state
 }
 
-// Create basic redux usage example 
-expect(
-    reducer({ counter: 0 }, { type: 'INCREMENT' })
-).toEqual({ counter: 1 })
-expect(
-    reducer({ counter: 1 }, { type: 'INCREMENT' })
-).toEqual({ counter: 2 })
-expect(
-    reducer({ counter: 0 }, { type: 'DECREMENT' })
-).toEqual({ counter: -1 })
-expect(
-    reducer({ counter: 1 }, { type: 'DECREMENT' })
-).toEqual({ counter: 0 })
-expect(
-    reducer(undefined, { type: 'INCREMENT' })
-).toEqual({ counter: 1 })
-
-console.log('TESTS PASSED')
-
-// With redux
 const { createStore } = Redux;
 const store = createStore(reducer)
 
@@ -52,3 +27,16 @@ const render = () => {
 
 store.subscribe(render)
 render()
+
+
+// HTML
+
+<div>
+  <div id="renderDiv" >   
+  </div>
+  <div id="buttonDiv" > 
+    <input type="button" onclick="store.dispatch(increment); return false" value="+" /> 
+    <input type="button" onclick="store.dispatch(decrement); return false" value="-" /> 
+  </div>
+</div>
+

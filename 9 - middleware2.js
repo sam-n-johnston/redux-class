@@ -19,35 +19,14 @@ const reducer = (state = { counter: 0 }, action) => {
     return state
 }
 
-const createStore = (reducer, middlewares = []) => {
-    let state = reducer(undefined, {});
-    const listeners = [];
-
-    const getState = () => state;
-
-    const subscribe = (listener) => {
-        listeners.push(listener);
-    }
-
-    const dispatch = (action) => {
-        middlewares.map((middleware) => {
-            middleware(store)(action)
-        })
-
-        state = reducer(state, action);
-        listeners.forEach(listener => listener());
-    }
-
-    return { getState, subscribe, dispatch }
-}
-
-const logger = store => action => {
+const { createStore } = Redux;
+const logger = store => next => action => {
     console.log(action, '=>' ,store.getState())
 }
 
 const historyLog = {}
 
-const history = store => action => {
+const history = store => next => action => {
     historyLog[Date.now()] = {
         action,
         previousState: store.getState()
@@ -55,13 +34,10 @@ const history = store => action => {
     console.log(historyLog)
 }
 
-const actionCatcher = store => action => {
-    
-}
-
 const store = createStore(reducer, [history, logger])
 
 const render = () => {
+    consoloe
     document.getElementById("renderDiv").innerHTML = `
     <div> 
       ${store.getState().counter} 

@@ -1,10 +1,7 @@
 // Show undo/redo (11:31 in Dan's video) Higher order reducer (takes a reducer + args & sends another reducer). Or check Dan's old video (2015) at 23:21
-// state is immutable & a JS object
 const state = {
     counter: 10,
 };
-
-// state can only be changed by an action & a JS object
 const increment = {
     type: 'INCREMENT'
 }
@@ -42,6 +39,7 @@ const undoable = (reducer) => {
         }
     }
 }
+// redux-undo, redux-optimistic-ui, react-redux-form
 
 const createStore = (reducer) => {
     let state = reducer(undefined, {});
@@ -56,6 +54,9 @@ const createStore = (reducer) => {
     const dispatch = (action) => {
         state = reducer(state, action);
         listeners.forEach(listener => listener());
+        console.log('DISPATCHED')
+        console.log(action)
+        console.log(state)
     }
 
     return { getState, subscribe, dispatch }

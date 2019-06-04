@@ -6,9 +6,9 @@ const state = {
 // state can only be changed by an action & a JS object
 const increment = (dispatch, getState) => {
     dispatch({ type: 'SENDING_REQUEST' })
-    new Promise(resolve => setTimeout(() => resolve, 2000))
-        .then(dispatch({ type: 'INCREMENT' }))
-        .catch(dispatch({ type: 'REQUEST_FAILED' }))
+    return new Promise(resolve => setTimeout(resolve, 2000))
+        .then(() => dispatch({ type: 'INCREMENT' }))
+        .catch(() => dispatch({ type: 'REQUEST_FAILED' }))
 }
 const decrement = {
     type: 'DECREMENT'
