@@ -31,7 +31,7 @@ const combineReducers = (reducers) => { // reducers: { incAndDecReducer: Functio
     }
 }
 
-// Show undo/redo (11:31 in Dan's video) Higher order reducer (takes a reducer + args & sends another reducer). Or check Dan's old video (2015) at 23:21
+
 
 // How we can create memoized selectors (since they're pure)
 
