@@ -31,10 +31,6 @@ const combineReducers = (reducers) => { // reducers: { incAndDecReducer: Functio
     }
 }
 
-
-
-// How we can create memoized selectors (since they're pure)
-
-// Show some sweet debug features (hot reloading, time travel, record user sessions in case of error, )
+// Show some sweet debug features (hot reloading, time travel, record user sessions in case of error)
 
 // Show state persistence, optimistic mutations (re-calculate the state if you remove 1 action), 
