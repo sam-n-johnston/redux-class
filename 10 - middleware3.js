@@ -1,14 +1,12 @@
+// using actual redux 
 // state is immutable & a JS object
 const state = {
     counter: 10,
 };
 
 // state can only be changed by an action & a JS object
-const increment = (dispatch, getState) => {
-    dispatch({ type: 'SENDING_REQUEST' })
-    new Promise(resolve => setTimeout(() => resolve, 2000))
-        .then(dispatch({ type: 'INCREMENT' }))
-        .catch(dispatch({ type: 'REQUEST_FAILED' }))
+const increment = {
+    type: 'INCREMENT'
 }
 const decrement = {
     type: 'DECREMENT'
@@ -48,11 +46,21 @@ const logger = store => action => {
     console.log(action, '=>' ,store.getState())
 }
 
-const thunk = store => action => {
-    if (typeof action === 'function') return action(store.dispatch, store.getState)
+const historyLog = {}
+
+const history = store => action => {
+    historyLog[Date.now()] = {
+        action,
+        previousState: store.getState()
+    }
+    console.log(historyLog)
 }
 
-const store = createStore(reducer, [logger, thunk])
+const actionCatcher = store => action => {
+    
+}
+
+const store = createStore(reducer, [history, logger])
 
 const render = () => {
     document.getElementById("renderDiv").innerHTML = `
